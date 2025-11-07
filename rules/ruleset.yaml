@@ -1,0 +1,2 @@
+name: kubernetes-go-migration
+description: Rules for migrating Kubernetes Go applications to newer API versions.

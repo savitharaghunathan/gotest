@@ -1,0 +1,33 @@
+- ruleID: "k8s-autoscaling-v2beta1-import"
+  labels:
+    - "konveyor.io/target=go"
+  effort: 3
+  category: mandatory
+  description: "Migrate deprecated autoscaling/v2beta1 import to stable autoscaling/v2"
+  when:
+    go.referenced:
+      pattern: "autoscalingv2beta1"
+  message: "autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in k8s 1.22+, unavailable in 1.25+. Migrate to autoscaling/v2"
+
+- ruleID: "k8s-hpa-target-structure-v2"
+  labels:
+    - "konveyor.io/target=go"
+  effort: 3
+  category: mandatory
+  description: "Update HPA metric target structure for autoscaling/v2"
+  when:
+    go.referenced:
+      pattern: "TargetAverageUtilization"
+  message: "HPA v2 requires updated metric target structure. Replace TargetAverageUtilization with Target.AverageUtilization"
+
+- ruleID: "k8s-client-version-outdated"
+  labels:
+    - "konveyor.io/target=go"
+  effort: 5
+  category: mandatory
+  description: "Update Kubernetes client-go to v1.34 compatible version"
+  when:
+    go.dependency:
+      name: "k8s.io/client-go"
+      upperbound: "0.31.0"
+  message: "Kubernetes client-go version is outdated. Update to v0.34+ for k8s 1.34 compatibility"
